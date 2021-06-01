@@ -1,9 +1,7 @@
-# Fabric Example Mod
+# VBO Generated Item Models
 
-## Setup
+What this mod does, is it makes it so that items using the `item/generated` model don't render using typical item models, but instead draw using vbos and a bit of shader magic
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+For me, with 1k diamond swords rendering I get 25 fps in vanilla, and 30 with this
 
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+It isn't a big optimization, but it does help a bit
