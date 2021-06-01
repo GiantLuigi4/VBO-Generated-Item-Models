@@ -8,6 +8,7 @@
   "contact": {},
   "license": "MIT",
   "icon": "assets/VBOGeneratedItems/icon.png",
+  "accessWidener" : "vbo_generated_items.accesswidener",
   "environment": "client",
   "entrypoints": {"client": ["tfc.vbogenerateditems.client.VBOGeneratedItemsClient"]},
   "mixins": [

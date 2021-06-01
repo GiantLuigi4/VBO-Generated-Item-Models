@@ -21,7 +21,6 @@ out vec4 fragColor;
 
 float lerp(float pct,float start,float end) {return pct*start+((1.-pct)*end);}
 
-//TODO: clean up the large amount of comment code here
 void main() {
     //vec4 color = texture(Sampler0, texCoord0) * vertexColor * ColorModulator;
     float tx = lerp(texCoord0.x, MinMaxUV.x, MinMaxUV.y);
@@ -40,7 +39,7 @@ void main() {
     fragColor = color;
     //fragColor *= texture(Sampler2, (LightCoord / 15.) + (0.5 / 15));
     //fragColor = vec4(LightCoord/15.,0,1);
-    fragColor *= abs(dot(normal.xyz, normalize(vec3(0, 1, 0))));
+    fragColor *= abs(dot(normal.xyz, vec3(0, 1, 0)));
     //fragColor = vec4(vec2(tx, ty), 1, 1);
     //fragColor = vec4(vec2(texCoord0.x, texCoord0.y), 1, 1);
     //fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
