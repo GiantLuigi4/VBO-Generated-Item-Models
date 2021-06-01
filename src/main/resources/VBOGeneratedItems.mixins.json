@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "tfc.vbogenerateditems.client.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+    "ItemRendererMixin",
+    "GameRendererMixin",
+    "JsonUnbakedModelMixin",
+    "JsonUnbakedModelAccessor",
+    "ItemRendererAccessor",
+    "RenderLayerAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

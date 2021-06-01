@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "vbo_generated_items",
+  "version": "0.1",
+  "name": "VBOGeneratedItems",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/VBOGeneratedItems/icon.png",
+  "environment": "client",
+  "entrypoints": {"client": ["tfc.vbogenerateditems.client.VBOGeneratedItemsClient"]},
+  "mixins": [
+    "VBOGeneratedItems.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17-beta.1"
+  }
+}
