@@ -291,13 +291,13 @@ public class VBORenderer {
 					VBOGeneratedItemsClient.vboShaderLayer.startDrawing();
 					if (VBOGeneratedItemsClient.shader.vectorUV != null) VBOGeneratedItemsClient.shader.vectorUV.method_35657(sprite.getMinU(), sprite.getMaxU(), sprite.getMinV(), sprite.getMaxV());
 					if (VBOGeneratedItemsClient.shader.lightCoord != null) VBOGeneratedItemsClient.shader.lightCoord.set((float) LightmapTextureManager.getBlockLightCoordinates(light), (float) LightmapTextureManager.getSkyLightCoordinates(light));
-//					int c = ((ItemRendererAccessor)MinecraftClient.getInstance().getItemRenderer()).getColorMap().getColorMultiplier(stack, i);
-//					if (VBOGeneratedItemsClient.shader.colorModulator != null) VBOGeneratedItemsClient.shader.colorModulator.method_35657(
-//							((c >> 16) & 0xFF) / 255f,
-//							((c >> 8) & 0xFF) / 255f,
-//							((c >> 0) & 0xFF) / 255f,
-//							((c >> 24) & 0xFF) / 255f
-//					); //TODO
+					int c = ((ItemRendererAccessor)MinecraftClient.getInstance().getItemRenderer()).getColorMap().getColorMultiplier(stack, i);
+					if (VBOGeneratedItemsClient.shader.color != null) VBOGeneratedItemsClient.shader.color.method_35657(
+							((c >> 16) & 0xFF) / 255f,
+							((c >> 8) & 0xFF) / 255f,
+							((c) & 0xFF) / 255f,
+							((c >> 24) & 0xFF) / 255f
+					); //TODO
 					Matrix4f mat = RenderSystem.getModelViewMatrix().copy();
 					mat.multiply(matrices.peek().getModel());
 					buffer.setShader(mat, RenderSystem.getProjectionMatrix(), VBOGeneratedItemsClient.shader);

@@ -6,3 +6,4 @@ accessible class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 
 accessible field net/minecraft/client/render/RenderPhase ENABLE_LIGHTMAP Lnet/minecraft/client/render/RenderPhase$Lightmap;
 accessible field net/minecraft/client/render/RenderPhase BLOCK_ATLAS_TEXTURE Lnet/minecraft/client/render/RenderPhase$Texture;
+accessible field net/minecraft/client/render/RenderPhase TRANSLUCENT_TRANSPARENCY Lnet/minecraft/client/render/RenderPhase$Transparency;

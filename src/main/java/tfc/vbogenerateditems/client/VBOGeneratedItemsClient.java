@@ -21,6 +21,7 @@ public class VBOGeneratedItemsClient implements ClientModInitializer {
 				RenderLayer.MultiPhaseParameters.builder()
 						.lightmap(RenderPhase.ENABLE_LIGHTMAP)
 						.shader(VBO_SHADER)
+						.transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY)
 						.texture(RenderPhase.BLOCK_ATLAS_TEXTURE)
 						.build(true)
 		);

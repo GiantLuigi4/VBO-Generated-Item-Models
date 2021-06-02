@@ -1,6 +1,7 @@
 package tfc.vbogenerateditems.client;
 
 import com.mojang.datafixers.util.Either;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
@@ -29,10 +30,19 @@ public class JSONModelBaker {
 //			);
 			Collection<SpriteIdentifier> sprites = new ArrayList<>();
 			// this is an assumption, idk if this works
-			for (Either<SpriteIdentifier, String> value : ((JsonUnbakedModelAccessor) parent).getTextureMap().values()) {
-				if (value.left().isPresent()) sprites.add(value.left().get());
-				else if (value.right().isPresent()) sprites.add(new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(value.right().get())));
+			// actually this does work, however it's not how it should be done
+//			for (Either<SpriteIdentifier, String> value : ((JsonUnbakedModelAccessor) parent).getTextureMap().values()) {
+//				if (value.left().isPresent()) sprites.add(value.left().get());
+//				else if (value.right().isPresent()) sprites.add(new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(value.right().get())));
+//			}
+			for (int i =0; i != -1; i++) {
+				SpriteIdentifier id1 = parent.resolveSprite("layer" + i);
+				if (id1.getAtlasId().toString().equals("minecraft:textures/atlas/blocks.png") && id1.getTextureId().toString().equals("minecraft:missingno")) {
+					break;
+				}
+				sprites.add(id1);
 			}
+			
 //			ArrayList<SpriteIdentifier> arrayList = new ArrayList<>();
 //			boolean foundEmpty = false;
 //			for (SpriteIdentifier sprite : sprites) {
