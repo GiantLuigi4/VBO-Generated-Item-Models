@@ -3,12 +3,9 @@
 #moj_import <light.glsl>
 
 in vec3 Position;
-in vec4 Color;
 in vec2 UV0;
-in ivec2 UV2;
 in vec3 Normal;
 
-uniform sampler2D Sampler0;
 uniform sampler2D Sampler2;
 uniform vec2 LightCoord;
 uniform vec4 MinMaxUV;
