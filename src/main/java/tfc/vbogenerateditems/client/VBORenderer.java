@@ -1,15 +1,20 @@
 package tfc.vbogenerateditems.client;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Quaternion;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import tfc.vbogenerateditems.client.mixin.ItemRendererAccessor;
 
@@ -291,17 +296,43 @@ public class VBORenderer {
 					VBOGeneratedItemsClient.vboShaderLayer.startDrawing();
 					if (VBOGeneratedItemsClient.shader.vectorUV != null) VBOGeneratedItemsClient.shader.vectorUV.method_35657(sprite.getMinU(), sprite.getMaxU(), sprite.getMinV(), sprite.getMaxV());
 					if (VBOGeneratedItemsClient.shader.lightCoord != null) VBOGeneratedItemsClient.shader.lightCoord.set((float) LightmapTextureManager.getBlockLightCoordinates(light), (float) LightmapTextureManager.getSkyLightCoordinates(light));
-					int c = ((ItemRendererAccessor)MinecraftClient.getInstance().getItemRenderer()).getColorMap().getColorMultiplier(stack, i);
-					if (VBOGeneratedItemsClient.shader.color != null) VBOGeneratedItemsClient.shader.color.method_35657(
-							((c >> 16) & 0xFF) / 255f,
-							((c >> 8) & 0xFF) / 255f,
-							((c) & 0xFF) / 255f,
-							((c >> 24) & 0xFF) / 255f
-					); //TODO
+					if (VBOGeneratedItemsClient.shader.color != null) {
+						int c = ((ItemRendererAccessor)MinecraftClient.getInstance().getItemRenderer()).getColorMap().getColorMultiplier(stack, i);
+						VBOGeneratedItemsClient.shader.color.method_35657(
+								((c >> 16) & 0xFF) / 255f,
+								((c >> 8) & 0xFF) / 255f,
+								((c) & 0xFF) / 255f,
+								((c >> 24) & 0xFF) / 255f
+						);
+					}
 					Matrix4f mat = RenderSystem.getModelViewMatrix().copy();
 					mat.multiply(matrices.peek().getModel());
 					buffer.setShader(mat, RenderSystem.getProjectionMatrix(), VBOGeneratedItemsClient.shader);
 					VBOGeneratedItemsClient.vboShaderLayer.endDrawing();
+					if (stack.hasGlint()) {
+						VBOGeneratedItemsClient.vboShaderLayer.startDrawing();
+						RenderSystem.depthFunc(514);
+						RenderSystem.enableBlend();
+						RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_COLOR, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ZERO, GlStateManager.DstFactor.ONE);
+						RenderSystem.setShaderTexture(0, ItemRenderer.ENCHANTED_ITEM_GLINT);
+						// I have no idea why this works and I have no idea why vanilla enchantment glint doesn't work
+						{
+							float scale = 8;
+							long l = System.nanoTime() / 2500;
+//							long l = Util.getMeasuringTimeMs() * 8L;
+							float f = (float)(l % (110000L * 64)) / 110000.0F;
+							float g = (float)(l % (30000L * 64)) / 30000.0F;
+							Matrix4f matrix4f = Matrix4f.translate(-f, g, 0.0F);
+							matrix4f.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(10.0F));
+							matrix4f.multiply(Matrix4f.scale(scale, scale, scale));
+							RenderSystem.setTextureMatrix(matrix4f);
+						}
+						buffer.setShader(mat, RenderSystem.getProjectionMatrix(), VBOGeneratedItemsClient.shader);
+						RenderSystem.resetTextureMatrix();
+						RenderSystem.disableBlend();
+						RenderSystem.defaultBlendFunc();
+						VBOGeneratedItemsClient.vboShaderLayer.endDrawing();
+					}
 				}
 			}
 			ci.cancel();

@@ -11,11 +11,13 @@ public class VBOShader extends Shader {
 	public final GlUniform vectorUV;
 	public final GlUniform lightCoord;
 	public final GlUniform color;
+	public final GlUniform normal;
 	
 	public VBOShader(ResourceFactory factory, String name, VertexFormat format) throws IOException {
 		super(factory, name, format);
 		this.vectorUV = this.getUniform("MinMaxUV");
 		this.color = this.getUniform("ColorMultiplier");
 		this.lightCoord = this.getUniform("LightCoord");
+		this.normal = this.getUniform("Normal");
 	}
 }

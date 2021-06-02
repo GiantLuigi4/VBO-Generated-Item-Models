@@ -18,7 +18,7 @@ import java.util.*;
 
 public class VBOModel implements BakedModel {
 	private final List<SpriteIdentifier> textures;
-	private final ImmutableList<BakedQuad> quads = ImmutableList.of();
+	private static final ImmutableList<BakedQuad> quads = ImmutableList.of();
 	private final ModelTransformation transformation;
 	private final ModelOverrideList overrideList;
 	
